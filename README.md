@@ -112,8 +112,6 @@ npm run deploy
 └─ README.md
 ```
 
-仓库外的 `../cpa-sub2api-converter.html` 是同内容的本地静态 HTML 备份，修改页面时建议同步更新。
-
 ## 安全说明
 
 页面不需要后端 API，不会上传账号凭证。输入的 access token、refresh token、id token 等敏感信息只在当前浏览器内解析和生成下载文件。
