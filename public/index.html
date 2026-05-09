@@ -804,7 +804,7 @@
       </div>
       <div class="format-note">
         <strong>只转账号</strong>
-        <span>CPA -> sub2api 固定写入 `proxies: []`，不处理代理、notes、并发、优先级或默认分组绑定。</span>
+        <span>CPA -> sub2api 固定写入 `proxies: []`，不处理代理、notes 或默认分组绑定；账号使用 sub2api 默认 OAuth 值：并发 10、优先级 1、倍率 1、过期自动暂停。</span>
       </div>
       <div class="format-note">
         <strong>CPA 导出</strong>
@@ -873,6 +873,13 @@
       lastSub2APIFiles: []
     };
 
+    const DEFAULT_SUB2API_OAUTH_ACCOUNT_FIELDS = Object.freeze({
+      concurrency: 10,
+      priority: 1,
+      rate_multiplier: 1,
+      auto_pause_on_expired: true
+    });
+
     const cpaSample = `[
   {
     "type": "codex",
@@ -932,8 +939,10 @@
           "email": "alpha@example.com",
           "expires_at": "2099-01-01T00:00:00Z"
         },
-        "concurrency": 3,
-        "priority": 50
+        "concurrency": 10,
+        "priority": 1,
+        "rate_multiplier": 1,
+        "auto_pause_on_expired": true
       }
     ]
   }
@@ -1156,7 +1165,8 @@
         name,
         platform,
         type: "oauth",
-        credentials
+        credentials,
+        ...DEFAULT_SUB2API_OAUTH_ACCOUNT_FIELDS
       };
 
       return {
