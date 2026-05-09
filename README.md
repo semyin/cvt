@@ -5,7 +5,7 @@ CPA / sub2api 账号凭证格式转换工具。项目是一个纯静态 Web 页�
 在线地址：
 
 ```text
-https://cvt.semyin001.workers.dev
+https://cvt.okcode.cc.cd
 ```
 
 仓库地址：
