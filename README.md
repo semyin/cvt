@@ -2,6 +2,11 @@
 
 CPA / sub2api 账号凭证格式转换工具。项目是一个纯静态 Web 页面，部署在 Cloudflare Workers Assets 上，所有解析和生成都在浏览器本地完成。
 
+当前转换规则按以下源码基线同步：
+
+- CLIProxyAPI `411d7d41`（2026-07-14）
+- sub2api `da85cc7e`（2026-07-14）
+
 在线地址：
 
 ```text
@@ -22,6 +27,8 @@ https://github.com/semyin/cvt
 - 支持选择多个 `.json` 文件
 - CPA 转 sub2api 可下载汇总 JSON，也可下载按账号拆分的 ZIP
 - sub2api 转 CPA 会下载 ZIP，每个账号一个 CLIProxyAPI 原生 auth JSON
+- 支持 `codex <-> openai`、`claude <-> anthropic`、`antigravity <-> antigravity`、`xai <-> grok`
+- 兼容旧 CPA `gemini` / `gemini-cli` 文件向 sub2api 单向迁移
 
 ## 转换规则
 
@@ -33,7 +40,7 @@ https://github.com/semyin/cvt
 {
   "type": "sub2api-data",
   "version": 1,
-  "exported_at": "2026-05-09T00:00:00.000Z",
+  "exported_at": "2026-07-14T00:00:00.000Z",
   "proxies": [],
   "accounts": []
 }
@@ -41,7 +48,7 @@ https://github.com/semyin/cvt
 
 账号只转换凭证相关字段。`disabled=true` 的 CPA 账号会被跳过。
 
-为了保持和 sub2api 默认 OAuth 新建账号一致，CPA 转出的每个 sub2api 账号会写入：
+为了保持和 sub2api 默认 OAuth 新建账号一致，CPA 转出的普通账号会写入：
 
 ```json
 {
@@ -51,6 +58,8 @@ https://github.com/semyin/cvt
   "auto_pause_on_expired": true
 }
 ```
+
+Grok OAuth 按最新 sub2api 新建表单使用 `concurrency: 1`，其余默认字段不变。
 
 不会写入：
 
@@ -62,9 +71,13 @@ https://github.com/semyin/cvt
 
 注意：token 的 `credentials.expires_at` 会保留；这里不写的是 sub2api 账号本身的过期时间。
 
+这是一个公开使用的转换页面，因此两个方向都不会携带或还原代理配置。输入中的 `proxy_url`、`proxy_key`、代理用户名和密码会被主动丢弃。
+
 ### sub2api -> CPA
 
 CPA 当前按“每账号一个 auth JSON”管理，不是一个 JSON 文件包含多个账号的导入格式。因此反向转换会生成 ZIP，解压后可得到多个 CPA auth JSON 文件。
+
+CLIProxyAPI 最新源码已移除内置 Gemini auth 文件加载，`type: "gemini"` 会被直接忽略。因此反向转换遇到 sub2api Gemini 账号时会明确跳过，不生成无效的 CPA 文件；旧 CPA Gemini 文件仍可正向迁移到 sub2api。
 
 支持从以下输入中读取账号：
 
@@ -72,6 +85,8 @@ CPA 当前按“每账号一个 auth JSON”管理，不是一个 JSON 文件包
 - `{ "data": { ... } }` 导入接口包装格式
 - `accounts` 数组
 - 单个 account 对象
+
+带 `type` / `version` 的 DataPayload 会按 sub2api 当前规则校验：支持 `sub2api-data`、兼容 `sub2api-bundle`，版本为 `1`，并要求同时提供 `proxies` 和 `accounts` 数组。
 
 ## 本地开发
 
@@ -85,6 +100,12 @@ npm install
 
 ```powershell
 npm run dev
+```
+
+运行转换回归测试：
+
+```powershell
+npm test
 ```
 
 部署到 Cloudflare Workers：
@@ -107,6 +128,8 @@ npm run deploy
 .
 ├─ public/
 │  └─ index.html      # 转换页面和全部前端逻辑
+├─ tests/
+│  └─ converter.test.mjs # 凭证格式回归测试
 ├─ package.json       # Wrangler 命令
 ├─ wrangler.jsonc     # Cloudflare Workers Assets 配置
 └─ README.md

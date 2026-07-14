@@ -77,11 +77,7 @@
     }
 
     .topbar {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 24px;
-      align-items: end;
-      padding: 4px 0 22px;
+      padding: 4px 0 18px;
     }
 
     .eyebrow {
@@ -110,19 +106,51 @@
 
     .source-note {
       display: grid;
-      gap: 8px;
-      min-width: 300px;
-      padding: 14px 16px;
-      border: 1px solid rgba(8, 122, 131, 0.26);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.74);
-      box-shadow: 0 14px 34px rgba(21, 46, 58, 0.06);
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 16px;
+      min-width: 0;
+      align-items: center;
+      margin-top: 22px;
+      padding: 10px 0;
+      border-top: 1px solid rgba(8, 122, 131, 0.20);
+      border-bottom: 1px solid rgba(8, 122, 131, 0.20);
     }
 
     .source-note span {
       color: var(--muted);
       font-size: 12px;
       line-height: 1.35;
+    }
+
+    .source-version {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: 6px;
+      border-radius: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      text-decoration: none;
+      transition: color 160ms ease;
+    }
+
+    .source-version:hover {
+      color: var(--accent-ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .source-version:focus-visible {
+      outline: 3px solid rgba(8, 122, 131, 0.20);
+      outline-offset: 2px;
+    }
+
+    .source-version svg {
+      width: 14px;
+      height: 14px;
+      flex: 0 0 auto;
+      color: var(--accent);
     }
 
     .source-note strong {
@@ -133,15 +161,25 @@
 
     .source-note-header {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
-      justify-content: space-between;
+      padding-right: 16px;
+      border-right: 1px solid var(--line);
+      white-space: nowrap;
+    }
+
+    .source-versions {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: 7px 18px;
+      flex-wrap: wrap;
     }
 
     .repo-link {
       display: inline-flex;
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
       flex: 0 0 auto;
       align-items: center;
       justify-content: center;
@@ -164,8 +202,67 @@
     }
 
     .repo-link svg {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
+    }
+
+    .promo-links {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      padding-left: 16px;
+      border-left: 1px solid var(--line);
+    }
+
+    .promo-banner {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 160ms ease;
+      white-space: nowrap;
+    }
+
+    .promo-banner + .promo-banner {
+      margin-left: 12px;
+      padding-left: 12px;
+      border-left: 1px solid var(--line);
+    }
+
+    .promo-banner:hover {
+      color: var(--accent-ink);
+    }
+
+    .promo-banner:focus-visible {
+      outline: 3px solid rgba(8, 122, 131, 0.20);
+      outline-offset: 2px;
+    }
+
+    .promo-copy {
+      display: flex;
+      min-width: 0;
+      align-items: baseline;
+      gap: 6px;
+      overflow-wrap: anywhere;
+    }
+
+    .promo-copy strong {
+      font-size: 12px;
+      font-weight: 740;
+    }
+
+    .promo-brand {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .promo-banner > svg {
+      width: 14px;
+      height: 14px;
+      flex: 0 0 auto;
+      color: var(--muted-2);
     }
 
     .workspace {
@@ -661,13 +758,20 @@
     }
 
     @media (max-width: 1120px) {
-      .topbar,
       .workspace {
         grid-template-columns: 1fr;
       }
 
       .source-note {
-        min-width: 0;
+        grid-template-columns: auto minmax(0, 1fr);
+      }
+
+      .promo-links {
+        grid-column: 1 / -1;
+        padding-top: 10px;
+        padding-left: 0;
+        border-top: 1px solid var(--line);
+        border-left: 0;
       }
 
       .stats,
@@ -680,6 +784,26 @@
       .shell {
         width: min(100vw - 24px, 1480px);
         padding-top: 18px;
+      }
+
+      .source-note {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .source-note-header {
+        padding-right: 0;
+        border-right: 0;
+      }
+
+      .source-versions {
+        display: grid;
+      }
+
+      .promo-links {
+        grid-column: auto;
+        flex-wrap: wrap;
       }
 
       .panel-header {
@@ -712,7 +836,7 @@
 <body>
   <main class="shell">
     <header class="topbar">
-      <div>
+      <div class="topbar-copy">
         <p class="eyebrow">CLIProxyAPI / sub2api</p>
         <h1>账号凭证格式转换台</h1>
         <p class="summary">本页在浏览器本地解析和生成 JSON。默认流程是粘贴或选择 CLIProxyAPI auth 文件，导出可直接用于 sub2api 管理接口的导入包。</p>
@@ -726,8 +850,49 @@
             </svg>
           </a>
         </div>
-        <span>CLIProxyAPI main: 785b00c3, 2026-05-07</span>
-        <span>sub2api main: dbc8ae65, 2026-05-08</span>
+        <div class="source-versions">
+          <a class="source-version" href="https://github.com/router-for-me/CLIProxyAPI/commit/411d7d41eee0ff841b5badba5abacad6c11331ef" target="_blank" rel="noopener noreferrer" title="打开 CLIProxyAPI 对应提交">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 3v12"/>
+              <circle cx="18" cy="6" r="3"/>
+              <circle cx="6" cy="18" r="3"/>
+              <path d="M18 9a9 9 0 0 1-9 9"/>
+            </svg>
+            CLIProxyAPI main: 411d7d41, 2026-07-14
+          </a>
+          <a class="source-version" href="https://github.com/Wei-Shaw/sub2api/commit/da85cc7e47882090b115d664afe8e39b37aa7417" target="_blank" rel="noopener noreferrer" title="打开 sub2api 对应提交">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 3v12"/>
+              <circle cx="18" cy="6" r="3"/>
+              <circle cx="6" cy="18" r="3"/>
+              <path d="M18 9a9 9 0 0 1-9 9"/>
+            </svg>
+            sub2api main: da85cc7e, 2026-07-14
+          </a>
+        </div>
+        <div class="promo-links" aria-label="相关站点">
+          <a class="promo-banner" href="https://code.revia.top" target="_blank" rel="sponsored noopener noreferrer" aria-label="打开瑞维亚AI自用中转站">
+            <span class="promo-copy">
+              <strong>自用中转站</strong>
+              <span class="promo-brand">瑞维亚AI</span>
+            </span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 3h6v6"/>
+              <path d="M10 14 21 3"/>
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            </svg>
+          </a>
+          <a class="promo-banner" href="https://console.buycodekey.com/sign-up?aff=qF1c" target="_blank" rel="sponsored noopener noreferrer" aria-label="打开 BuyCodekeyAPI">
+            <span class="promo-copy">
+              <strong>BuyCodekeyAPI</strong>
+            </span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 3h6v6"/>
+              <path d="M10 14 21 3"/>
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            </svg>
+          </a>
+        </div>
       </aside>
     </header>
 
@@ -848,11 +1013,11 @@
       </div>
       <div class="format-note">
         <strong>只转账号</strong>
-        <span>CPA -> sub2api 固定写入 `proxies: []`，不处理代理、notes 或默认分组绑定；账号使用 sub2api 默认 OAuth 值：并发 10、优先级 1、倍率 1、过期自动暂停。</span>
+        <span>两个方向都只转换账号凭证，不携带代理地址、用户名或密码；CPA -> sub2api 固定写入 `proxies: []`。OAuth 默认并发为 10，Grok 按最新版源码使用 1。</span>
       </div>
       <div class="format-note">
         <strong>CPA 导出</strong>
-        <span>sub2api -> CPA 会生成 ZIP；解压后每个账号一个 CLIProxyAPI 原生 auth JSON。</span>
+        <span>sub2api -> CPA 会生成 ZIP；解压后每个账号一个 CLIProxyAPI 原生 auth JSON。最新版 CPA 已移除 Gemini auth，反向遇到 Gemini 会明确跳过。</span>
       </div>
     </section>
   </main>
@@ -867,15 +1032,24 @@
       anthropic: "anthropic",
       gemini: "gemini",
       "gemini-cli": "gemini",
-      antigravity: "antigravity"
+      antigravity: "antigravity",
+      xai: "grok"
     };
 
     const PLATFORM_TO_PROVIDER = {
       openai: "codex",
       anthropic: "claude",
-      gemini: "gemini",
-      antigravity: "antigravity"
+      antigravity: "antigravity",
+      grok: "xai"
     };
+
+    const SUPPORTED_SUB2API_DATA_TYPES = new Set(["sub2api-data", "sub2api-bundle"]);
+    const SUPPORTED_SUB2API_DATA_VERSION = 1;
+    const XAI_DEFAULT_CLIENT_ID = "b1a00492-073a-47ea-816f-4c329264a828";
+    const XAI_DEFAULT_SCOPE = "openid profile email offline_access grok-cli:access api:access";
+    const XAI_DEFAULT_API_BASE_URL = "https://api.x.ai/v1";
+    const XAI_DEFAULT_CLI_BASE_URL = "https://cli-chat-proxy.grok.com/v1";
+    const XAI_DEFAULT_TOKEN_ENDPOINT = "https://auth.x.ai/oauth2/token";
 
     const els = {
       dirCpaToSub: document.getElementById("dirCpaToSub"),
@@ -918,11 +1092,17 @@
     };
 
     const DEFAULT_SUB2API_OAUTH_ACCOUNT_FIELDS = Object.freeze({
-      concurrency: 10,
       priority: 1,
       rate_multiplier: 1,
       auto_pause_on_expired: true
     });
+
+    function sub2APIAccountDefaults(platform) {
+      return {
+        concurrency: platform === "grok" ? 1 : 10,
+        ...DEFAULT_SUB2API_OAUTH_ACCOUNT_FIELDS
+      };
+    }
 
     const cpaSample = `[
   {
@@ -943,16 +1123,17 @@
     "expired": "2099-01-01T00:00:00Z"
   },
   {
-    "type": "gemini",
-    "email": "g@example.com",
-    "project_id": "proj",
-    "token": {
-      "access_token": "gat",
-      "refresh_token": "grt",
-      "client_id": "cid",
-      "client_secret": "sec",
-      "token_uri": "https://oauth2.googleapis.com/token"
-    }
+    "type": "xai",
+    "email": "grok@example.com",
+    "sub": "xai-user-id",
+    "access_token": "xat",
+    "refresh_token": "xrt",
+    "id_token": "xidt",
+    "token_type": "Bearer",
+    "expired": "2099-01-01T00:00:00Z",
+    "base_url": "https://api.x.ai/v1",
+    "token_endpoint": "https://auth.x.ai/oauth2/token",
+    "auth_kind": "oauth"
   },
   {
     "type": "antigravity",
@@ -960,36 +1141,38 @@
     "project_id": "agproj",
     "access_token": "agat",
     "refresh_token": "agrt",
-    "expired": "2099-01-01T00:00:00Z",
-    "proxy_url": "http://user:pass@127.0.0.1:8080"
+    "expired": "2099-01-01T00:00:00Z"
   }
 ]`;
 
     const subSample = `{
-  "data": {
-    "type": "sub2api-data",
-    "version": 1,
-    "exported_at": "2026-05-09T00:00:00Z",
-    "proxies": [],
-    "accounts": [
-      {
-        "name": "alpha@example.com",
-        "platform": "openai",
-        "type": "oauth",
-        "credentials": {
-          "access_token": "at",
-          "refresh_token": "rt",
-          "id_token": "idt",
-          "email": "alpha@example.com",
-          "expires_at": "2099-01-01T00:00:00Z"
-        },
-        "concurrency": 10,
-        "priority": 1,
-        "rate_multiplier": 1,
-        "auto_pause_on_expired": true
-      }
-    ]
-  }
+  "type": "sub2api-data",
+  "version": 1,
+  "exported_at": "2026-07-14T00:00:00Z",
+  "proxies": [],
+  "accounts": [
+    {
+      "name": "grok@example.com",
+      "platform": "grok",
+      "type": "oauth",
+      "credentials": {
+        "access_token": "xat",
+        "refresh_token": "xrt",
+        "id_token": "xidt",
+        "token_type": "Bearer",
+        "email": "grok@example.com",
+        "sub": "xai-user-id",
+        "client_id": "b1a00492-073a-47ea-816f-4c329264a828",
+        "scope": "openid profile email offline_access grok-cli:access api:access",
+        "base_url": "https://cli-chat-proxy.grok.com/v1",
+        "expires_at": "2099-01-01T00:00:00Z"
+      },
+      "concurrency": 1,
+      "priority": 1,
+      "rate_multiplier": 1,
+      "auto_pause_on_expired": true
+    }
+  ]
 }`;
 
     function debounce(fn, wait) {
@@ -1079,7 +1262,7 @@
         ? { ...raw.metadata }
         : { ...raw };
 
-      for (const key of ["id", "label", "status", "disabled", "proxy_url", "priority"]) {
+      for (const key of ["id", "label", "status", "disabled", "priority"]) {
         if (meta[key] === undefined && raw[key] !== undefined) meta[key] = raw[key];
       }
       if (!meta.type) {
@@ -1089,54 +1272,17 @@
       return meta;
     }
 
-    function parseProxyURL(proxyUrl) {
-      const raw = asString(proxyUrl).trim();
-      if (!raw || raw.toLowerCase() === "direct") return null;
-      let parsed;
-      try {
-        parsed = new URL(raw);
-      } catch (_) {
-        return { error: "proxy_url 无法解析" };
+    function addKnownCredential(target, source, key, outKey = key) {
+      if (!source || typeof source !== "object" || target[outKey] !== undefined) return;
+      const value = source[key];
+      if (typeof value === "string") {
+        const trimmed = value.trim();
+        if (trimmed) target[outKey] = trimmed;
+      } else if (typeof value === "number" && Number.isFinite(value)) {
+        target[outKey] = value;
+      } else if (typeof value === "boolean") {
+        target[outKey] = value;
       }
-      const protocol = parsed.protocol.replace(":", "").toLowerCase();
-      if (!["http", "https", "socks5", "socks5h"].includes(protocol)) {
-        return { error: `不支持的 proxy_url 协议: ${protocol || "empty"}` };
-      }
-      const host = parsed.hostname;
-      const port = Number.parseInt(parsed.port, 10);
-      if (!host || !Number.isFinite(port)) {
-        return { error: "proxy_url 缺少 host 或 port" };
-      }
-      const username = decodeURIComponent(parsed.username || "");
-      const password = decodeURIComponent(parsed.password || "");
-      return {
-        proxy_key: `${protocol}|${host}|${port}|${username}|${password}`,
-        name: "imported-proxy",
-        protocol,
-        host,
-        port,
-        username,
-        password,
-        status: "active"
-      };
-    }
-
-    function proxyToURL(proxyKey, proxyMap) {
-      const proxy = proxyMap.get(proxyKey);
-      if (!proxy) return "";
-      const protocol = asString(proxy.protocol).trim();
-      const host = asString(proxy.host).trim();
-      const port = asString(proxy.port).trim();
-      if (!protocol || !host || !port) return "";
-      const user = asString(proxy.username);
-      const pass = asString(proxy.password);
-      const auth = user ? `${encodeURIComponent(user)}${pass ? `:${encodeURIComponent(pass)}` : ""}@` : "";
-      return `${protocol}://${auth}${host}:${port}`;
-    }
-
-    function addKnownCredential(creds, target, source, key, outKey = key) {
-      const value = asString(source[key]).trim();
-      if (value && target[outKey] === undefined) target[outKey] = value;
     }
 
     function convertCPARecord(entry) {
@@ -1164,7 +1310,8 @@
       const idToken = firstString(meta, ["id_token", "idToken"]);
       const projectId = firstString(meta, ["project_id", "projectId"]);
       const sourceName = entry.name || "pasted-json";
-      const name = email || firstString(meta, ["label", "name"]) || `${provider}:${sourceName.replace(/\.json$/i, "")}`;
+      const subject = firstString(meta, ["sub", "subject"]);
+      const name = email || subject || firstString(meta, ["label", "name"]) || `${provider}:${sourceName.replace(/\.json$/i, "")}`;
       const token = nestedToken(meta);
 
       const credentials = {
@@ -1186,15 +1333,25 @@
         "client_secret",
         "token_uri",
         "plan_type",
+        "subscription_expires_at",
         "chatgpt_account_id",
         "chatgpt_user_id",
         "organization_id",
-        "user_agent"
+        "chatgpt_account_is_fedramp",
+        "openai_auth_mode",
+        "auth_mode",
+        "user_agent",
+        "base_url",
+        "sub",
+        "team_id",
+        "subscription_tier",
+        "entitlement_status",
+        "using_api"
       ]) {
-        addKnownCredential(credentials, credentials, meta, key);
+        addKnownCredential(credentials, meta, key);
       }
       for (const key of ["client_id", "client_secret", "token_uri", "scope", "token_type"]) {
-        addKnownCredential(credentials, credentials, token, key);
+        addKnownCredential(credentials, token, key);
       }
 
       const accountId = firstString(meta, ["account_id", "accountId"]);
@@ -1204,14 +1361,28 @@
       }
       if (platform === "gemini" && projectId && !credentials.oauth_type) credentials.oauth_type = "code_assist";
       if (platform === "antigravity" && !projectId) issues.push("antigravity 缺少 project_id，sub2api 可能无法刷新");
+      if (platform === "grok") {
+        if (!credentials.client_id) credentials.client_id = XAI_DEFAULT_CLIENT_ID;
+        if (!credentials.scope) credentials.scope = XAI_DEFAULT_SCOPE;
+        if (!credentials.token_type) credentials.token_type = "Bearer";
+        credentials.base_url = XAI_DEFAULT_CLI_BASE_URL;
+        if (!refreshToken) issues.push("xai 缺少 refresh_token，访问令牌过期后 sub2api 无法刷新");
+      }
 
       const account = {
         name,
         platform,
         type: "oauth",
         credentials,
-        ...DEFAULT_SUB2API_OAUTH_ACCOUNT_FIELDS
+        ...sub2APIAccountDefaults(platform)
       };
+      if (platform === "grok") {
+        const extra = {};
+        for (const key of ["email", "subscription_tier", "entitlement_status"]) {
+          addKnownCredential(extra, credentials, key);
+        }
+        if (Object.keys(extra).length) account.extra = extra;
+      }
 
       return {
         account,
@@ -1226,12 +1397,15 @@
       };
     }
 
-    function convertSubAccount(entry, proxyMap) {
+    function convertSubAccount(entry) {
       const account = entry.value;
       if (!account || typeof account !== "object" || Array.isArray(account)) {
         return { skipped: true, reason: "记录不是 sub2api account 对象" };
       }
       const platform = firstString(account, ["platform"]).toLowerCase();
+      if (platform === "gemini") {
+        return { skipped: true, reason: "最新版 CLIProxyAPI 已移除 Gemini auth 文件支持，仅保留 CPA 旧文件 -> sub2api 的单向迁移" };
+      }
       const provider = PLATFORM_TO_PROVIDER[platform];
       if (!provider) return { skipped: true, reason: `暂不支持 platform: ${platform || "empty"}` };
 
@@ -1250,15 +1424,23 @@
       const projectId = firstString(creds, ["project_id", "projectId"]);
 
       if (email) auth.email = email;
-      if (provider === "gemini") {
-        if (projectId) auth.project_id = projectId;
-        auth.token = { access_token: accessToken };
-        if (refreshToken) auth.token.refresh_token = refreshToken;
-        for (const key of ["client_id", "client_secret", "token_uri", "scope", "token_type"]) {
-          const value = firstString(creds, [key]);
-          if (value) auth.token[key] = value;
+      if (provider === "xai") {
+        auth.access_token = accessToken;
+        if (refreshToken) auth.refresh_token = refreshToken;
+        if (idToken) auth.id_token = idToken;
+        auth.token_type = firstString(creds, ["token_type"]) || "Bearer";
+        if (expiresAt) auth.expired = expiresAt;
+        const subject = firstString(creds, ["sub", "subject"]);
+        if (subject) auth.sub = subject;
+        const baseURL = firstString(creds, ["base_url"]);
+        auth.base_url = !baseURL || baseURL === XAI_DEFAULT_CLI_BASE_URL ? XAI_DEFAULT_API_BASE_URL : baseURL;
+        auth.token_endpoint = firstString(creds, ["token_endpoint"]) || XAI_DEFAULT_TOKEN_ENDPOINT;
+        auth.auth_kind = "oauth";
+        for (const key of ["redirect_uri", "using_api"]) {
+          addKnownCredential(auth, creds, key);
         }
-        if (expiresAt) auth.token.expires_at = expiresAt;
+        const expiresIn = asInt(creds.expires_in, null);
+        if (expiresIn !== null) auth.expires_in = expiresIn;
       } else {
         auth.access_token = accessToken;
         if (refreshToken) auth.refresh_token = refreshToken;
@@ -1269,10 +1451,22 @@
           if (chatgptAccountId) auth.account_id = chatgptAccountId;
         }
         if (provider === "antigravity" && projectId) auth.project_id = projectId;
+        for (const key of [
+          "token_type",
+          "scope",
+          "client_id",
+          "plan_type",
+          "subscription_expires_at",
+          "chatgpt_user_id",
+          "organization_id",
+          "chatgpt_account_is_fedramp",
+          "openai_auth_mode",
+          "auth_mode"
+        ]) {
+          addKnownCredential(auth, creds, key);
+        }
       }
 
-      const proxyURL = proxyToURL(firstString(account, ["proxy_key"]), proxyMap);
-      if (proxyURL) auth.proxy_url = proxyURL;
       if (account.priority !== undefined) auth.priority = account.priority;
       if (account.disabled !== undefined) auth.disabled = boolValue(account.disabled);
       const notes = firstString(account, ["notes"]);
@@ -1282,7 +1476,7 @@
         account: auth,
         fileName: cpaAuthFileName(auth, account, entry.name),
         preview: {
-          name: email || firstString(account, ["name"]) || provider,
+          name: email || provider,
           platform: provider,
           type: "CPA JSON",
           expires: expiresAt || "0",
@@ -1388,28 +1582,58 @@
       };
     }
 
+    function unwrapSub2APIEnvelope(raw) {
+      return raw && typeof raw === "object" && !Array.isArray(raw) &&
+        raw.data && typeof raw.data === "object" && !Array.isArray(raw.data)
+        ? raw.data
+        : raw;
+    }
+
+    function validateSub2APIDataHeader(data) {
+      if (!data || typeof data !== "object" || Array.isArray(data)) return "";
+      const hasCollections = data.accounts !== undefined || data.proxies !== undefined;
+      const hasKnownType = SUPPORTED_SUB2API_DATA_TYPES.has(data.type);
+      const requiresFullPayload = hasKnownType || data.version !== undefined || data.exported_at !== undefined ||
+        (hasCollections && data.type !== undefined);
+      if (!requiresFullPayload && !hasCollections) return "";
+
+      if (requiresFullPayload && data.type !== undefined && data.type !== "" && !hasKnownType) {
+        return `不支持的 sub2api data type: ${asString(data.type) || typeof data.type}`;
+      }
+      if (data.version !== undefined && data.version !== 0 && data.version !== SUPPORTED_SUB2API_DATA_VERSION) {
+        return `不支持的 sub2api data version: ${asString(data.version) || typeof data.version}`;
+      }
+      if (data.accounts !== undefined && !Array.isArray(data.accounts)) return "accounts 必须是数组";
+      if (data.proxies !== undefined && !Array.isArray(data.proxies)) return "proxies 必须是数组";
+      if (requiresFullPayload && !Array.isArray(data.accounts)) return "accounts is required";
+      if (requiresFullPayload && !Array.isArray(data.proxies)) return "proxies is required";
+      return "";
+    }
+
     function buildCPA(entries) {
       const accounts = [];
       const cpaFiles = [];
       const previews = [];
       const issues = [];
       const skipped = [];
-      const proxyMap = new Map();
       const usedNames = new Set();
+      const validEntries = [];
+      let headerSkipped = 0;
 
       for (const entry of entries) {
-        const raw = entry.value;
-        const data = raw && typeof raw === "object" && raw.data && typeof raw.data === "object" ? raw.data : raw;
-        const proxies = Array.isArray(data && data.proxies) ? data.proxies : [];
-        for (const proxy of proxies) {
-          const key = firstString(proxy, ["proxy_key"]) || `${firstString(proxy, ["protocol"])}|${firstString(proxy, ["host"])}|${firstString(proxy, ["port"])}|${firstString(proxy, ["username"])}|${firstString(proxy, ["password"])}`;
-          if (key) proxyMap.set(key, proxy);
+        const data = unwrapSub2APIEnvelope(entry.value);
+        const headerError = validateSub2APIDataHeader(data);
+        if (headerError) {
+          skipped.push({ source: entry.name, reason: headerError });
+          headerSkipped += 1;
+          continue;
         }
+        validEntries.push(entry);
       }
 
-      const accountEntries = expandSub2APIAccountEntries(entries);
+      const accountEntries = expandSub2APIAccountEntries(validEntries);
       for (const entry of accountEntries) {
-        const result = convertSubAccount(entry, proxyMap);
+        const result = convertSubAccount(entry);
         if (result.skipped) {
           skipped.push({ source: entry.name, reason: result.reason });
           continue;
@@ -1442,7 +1666,7 @@
         skipped,
         proxyCount: 0,
         accountCount: accounts.length,
-        totalRecordsOverride: accountEntries.length
+        totalRecordsOverride: accountEntries.length + headerSkipped
       };
     }
 
@@ -1462,10 +1686,6 @@
           value.auths.forEach((item, index) => push(item, `auths[${index}]`));
           return entries;
         }
-        if (Array.isArray(value.accounts) && !value.data) {
-          value.accounts.forEach((item, index) => push(item, `accounts[${index}]`));
-          return entries;
-        }
         push(value, "");
       }
       return entries;
@@ -1474,14 +1694,13 @@
     function expandSub2APIAccountEntries(entries) {
       const accountEntries = [];
       for (const entry of entries) {
-        const raw = entry.value;
-        const data = raw && typeof raw === "object" && raw.data && typeof raw.data === "object" ? raw.data : raw;
+        const data = unwrapSub2APIEnvelope(entry.value);
         if (Array.isArray(data && data.accounts)) {
           data.accounts.forEach((account, index) => {
             accountEntries.push({ name: `${entry.name}:accounts[${index}]`, value: account });
           });
-        } else if (raw && typeof raw === "object") {
-          accountEntries.push(entry);
+        } else if (data && typeof data === "object" && !Array.isArray(data)) {
+          accountEntries.push({ name: entry.name, value: data });
         }
       }
       return accountEntries;
