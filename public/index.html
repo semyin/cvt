@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CPA / sub2api 账号格式转换</title>
+  <title>CPA / sub2api / Grok2API 账号格式转换</title>
   <style>
     :root {
       color-scheme: light;
@@ -106,7 +106,7 @@
 
     .source-note {
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
+      grid-template-columns: auto minmax(0, 1fr);
       gap: 16px;
       min-width: 0;
       align-items: center;
@@ -206,65 +206,6 @@
       height: 16px;
     }
 
-    .promo-links {
-      display: flex;
-      min-width: 0;
-      align-items: center;
-      padding-left: 16px;
-      border-left: 1px solid var(--line);
-    }
-
-    .promo-banner {
-      display: flex;
-      min-width: 0;
-      align-items: center;
-      gap: 6px;
-      color: var(--text);
-      text-decoration: none;
-      transition: color 160ms ease;
-      white-space: nowrap;
-    }
-
-    .promo-banner + .promo-banner {
-      margin-left: 12px;
-      padding-left: 12px;
-      border-left: 1px solid var(--line);
-    }
-
-    .promo-banner:hover {
-      color: var(--accent-ink);
-    }
-
-    .promo-banner:focus-visible {
-      outline: 3px solid rgba(8, 122, 131, 0.20);
-      outline-offset: 2px;
-    }
-
-    .promo-copy {
-      display: flex;
-      min-width: 0;
-      align-items: baseline;
-      gap: 6px;
-      overflow-wrap: anywhere;
-    }
-
-    .promo-copy strong {
-      font-size: 12px;
-      font-weight: 740;
-    }
-
-    .promo-brand {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .promo-banner > svg {
-      width: 14px;
-      height: 14px;
-      flex: 0 0 auto;
-      color: var(--muted-2);
-    }
-
     .workspace {
       display: grid;
       grid-template-columns: minmax(360px, 0.92fr) minmax(520px, 1.08fr);
@@ -310,7 +251,7 @@
 
     .segmented {
       display: inline-grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, auto);
       gap: 3px;
       padding: 3px;
       border: 1px solid var(--line);
@@ -333,6 +274,10 @@
       color: var(--accent-ink);
       background: var(--surface);
       box-shadow: 0 5px 16px rgba(36, 56, 66, 0.10);
+    }
+
+    .segmented .compact-label {
+      display: none;
     }
 
     .input-body,
@@ -757,21 +702,23 @@
       display: none !important;
     }
 
+    @media (max-width: 1360px) {
+      .segmented button {
+        padding-inline: 6px;
+      }
+
+      .segmented .wide-label {
+        display: none;
+      }
+
+      .segmented .compact-label {
+        display: inline;
+      }
+    }
+
     @media (max-width: 1120px) {
       .workspace {
         grid-template-columns: 1fr;
-      }
-
-      .source-note {
-        grid-template-columns: auto minmax(0, 1fr);
-      }
-
-      .promo-links {
-        grid-column: 1 / -1;
-        padding-top: 10px;
-        padding-left: 0;
-        border-top: 1px solid var(--line);
-        border-left: 0;
       }
 
       .stats,
@@ -801,17 +748,24 @@
         display: grid;
       }
 
-      .promo-links {
-        grid-column: auto;
-        flex-wrap: wrap;
-      }
-
       .panel-header {
         display: grid;
       }
 
       .segmented {
         width: 100%;
+      }
+
+      .segmented button {
+        padding-inline: 6px;
+      }
+
+      .segmented .wide-label {
+        display: none;
+      }
+
+      .segmented .compact-label {
+        display: inline;
       }
 
       .options,
@@ -837,9 +791,9 @@
   <main class="shell">
     <header class="topbar">
       <div class="topbar-copy">
-        <p class="eyebrow">CLIProxyAPI / sub2api</p>
+        <p class="eyebrow">CLIProxyAPI / sub2api / Grok2API</p>
         <h1>账号凭证格式转换台</h1>
-        <p class="summary">本页在浏览器本地解析和生成 JSON。默认流程是粘贴或选择 CLIProxyAPI auth 文件，导出可直接用于 sub2api 管理接口的导入包。</p>
+        <p class="summary">本页在浏览器本地解析和生成 JSON，可在 CPA、sub2api 之间转换，也可把 CPA xAI 与 sub2api Grok 凭证生成为 Grok2API Build 导入包。</p>
       </div>
       <aside class="source-note" aria-label="源码版本">
         <div class="source-note-header">
@@ -870,29 +824,6 @@
             sub2api main: da85cc7e, 2026-07-14
           </a>
         </div>
-        <div class="promo-links" aria-label="相关站点">
-          <a class="promo-banner" href="https://code.revia.top" target="_blank" rel="sponsored noopener noreferrer" aria-label="打开瑞维亚AI自用中转站">
-            <span class="promo-copy">
-              <strong>自用中转站</strong>
-              <span class="promo-brand">瑞维亚AI</span>
-            </span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M15 3h6v6"/>
-              <path d="M10 14 21 3"/>
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            </svg>
-          </a>
-          <a class="promo-banner" href="https://console.buycodekey.com/sign-up?aff=qF1c" target="_blank" rel="sponsored noopener noreferrer" aria-label="打开 BuyCodekeyAPI">
-            <span class="promo-copy">
-              <strong>BuyCodekeyAPI</strong>
-            </span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M15 3h6v6"/>
-              <path d="M10 14 21 3"/>
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            </svg>
-          </a>
-        </div>
       </aside>
     </header>
 
@@ -904,8 +835,9 @@
             <p id="inputHint">支持单个对象、数组、NDJSON、连续粘贴多个 JSON 对象，也支持多选 .json 文件。</p>
           </div>
           <div class="segmented" role="tablist" aria-label="转换方向">
-            <button id="dirCpaToSub" class="active" type="button" role="tab" aria-selected="true">CPA -> sub2api</button>
-            <button id="dirSubToCpa" type="button" role="tab" aria-selected="false">sub2api -> CPA</button>
+            <button id="dirCpaToSub" class="active" type="button" role="tab" aria-label="CPA -> sub2api" aria-selected="true"><span class="wide-label">CPA -> sub2api</span><span class="compact-label">CPA-&gt;sub</span></button>
+            <button id="dirSubToCpa" type="button" role="tab" aria-label="sub2api -> CPA" aria-selected="false"><span class="wide-label">sub2api -> CPA</span><span class="compact-label">sub-&gt;CPA</span></button>
+            <button id="dirToGrok2APIBuild" type="button" role="tab" aria-label="CPA / sub2api -> Grok2API Build" aria-selected="false"><span class="wide-label">Grok2API Build</span><span class="compact-label">Build</span></button>
           </div>
         </div>
 
@@ -1012,8 +944,8 @@
         <span>下载文件就是 sub2api 前端导入弹窗读取的 DataPayload：`type/version/exported_at/proxies/accounts`。</span>
       </div>
       <div class="format-note">
-        <strong>只转账号</strong>
-        <span>两个方向都只转换账号凭证，不携带代理地址、用户名或密码；CPA -> sub2api 固定写入 `proxies: []`。OAuth 默认并发为 10，Grok 按最新版源码使用 1。</span>
+        <strong>Grok2API Build</strong>
+        <span>CPA xAI 与 sub2api Grok 可混合转换，支持合并 JSON 和拆分 ZIP；缺少 `refresh_token` 的账号会提示无法自动续期。</span>
       </div>
       <div class="format-note">
         <strong>CPA 导出</strong>
@@ -1054,6 +986,7 @@
     const els = {
       dirCpaToSub: document.getElementById("dirCpaToSub"),
       dirSubToCpa: document.getElementById("dirSubToCpa"),
+      dirToGrok2APIBuild: document.getElementById("dirToGrok2APIBuild"),
       inputTitle: document.getElementById("inputTitle"),
       inputHint: document.getElementById("inputHint"),
       outputTitle: document.getElementById("outputTitle"),
@@ -1088,7 +1021,8 @@
       lastFileName: "sub2api-import.json",
       lastDownloadKind: "json",
       lastCPAFiles: [],
-      lastSub2APIFiles: []
+      lastSub2APIFiles: [],
+      lastGrok2APIFiles: []
     };
 
     const DEFAULT_SUB2API_OAUTH_ACCOUNT_FIELDS = Object.freeze({
@@ -1174,6 +1108,31 @@
     }
   ]
 }`;
+
+    const grok2apiBuildSample = `[
+  {
+    "type": "xai",
+    "email": "cpa-build@example.com",
+    "sub": "cpa-build-user",
+    "access_token": "cpa-at",
+    "refresh_token": "cpa-rt",
+    "token_type": "Bearer",
+    "expired": "2099-01-01T00:00:00Z"
+  },
+  {
+    "name": "sub-build@example.com",
+    "platform": "grok",
+    "type": "oauth",
+    "credentials": {
+      "access_token": "sub-at",
+      "refresh_token": "sub-rt",
+      "token_type": "Bearer",
+      "email": "sub-build@example.com",
+      "sub": "sub-build-user",
+      "expires_at": "2099-02-01T00:00:00Z"
+    }
+  }
+]`;
 
     function debounce(fn, wait) {
       let timer = 0;
@@ -1483,6 +1442,250 @@
           status: "可导出"
         },
         issues: []
+      };
+    }
+
+    function normalizeRFC3339(value) {
+      const text = asString(value).trim();
+      if (!text) return "";
+      if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(text)) {
+        return "";
+      }
+      const timestamp = Date.parse(text);
+      return Number.isFinite(timestamp) ? new Date(timestamp).toISOString() : "";
+    }
+
+    function extractGrok2APIBuildExpiresAt(meta) {
+      const direct = firstString(meta, ["expires_at", "expired", "expiry", "expires", "expire"]);
+      if (direct) return direct;
+
+      const token = nestedToken(meta);
+      const nested = firstString(token, ["expires_at", "expired", "expiry", "expires", "expire"]);
+      if (nested) return nested;
+
+      const expiresIn = asInt(meta.expires_in, null);
+      const timestamp = asInt(meta.timestamp, null);
+      if (expiresIn !== null && expiresIn > 0 && timestamp !== null) {
+        const seconds = timestamp > 1000000000000 ? Math.trunc(timestamp / 1000) : timestamp;
+        return new Date((seconds + expiresIn) * 1000).toISOString();
+      }
+      return "";
+    }
+
+    function normalizeGrok2APIExpiresIn(value) {
+      if (value === null || value === undefined || asString(value).trim() === "") {
+        return { value: null, invalid: false };
+      }
+      const parsed = typeof value === "number" ? value : Number(asString(value).trim());
+      if (!Number.isFinite(parsed) || !Number.isInteger(parsed) || parsed < 0 || parsed > 365 * 24 * 60 * 60) {
+        return { value: null, invalid: true };
+      }
+      return { value: parsed, invalid: false };
+    }
+
+    function normalizeGrok2APIBuildCredential(candidate) {
+      const issues = [];
+      const accessToken = asString(candidate.access_token).trim();
+      const refreshToken = asString(candidate.refresh_token).trim();
+      if (!accessToken && !refreshToken) {
+        return { skipped: true, reason: "缺少 access_token 和 refresh_token" };
+      }
+
+      const rawTokenType = asString(candidate.token_type).trim();
+      if (rawTokenType && rawTokenType.toLowerCase() !== "bearer") {
+        return { skipped: true, reason: `暂不支持 token_type: ${rawTokenType}` };
+      }
+
+      const account = {
+        provider: "grok_build",
+        name: firstString(candidate, ["name", "email", "user_id"]) || "Grok Build account",
+        client_id: firstString(candidate, ["client_id"]) || XAI_DEFAULT_CLIENT_ID,
+        token_type: "Bearer"
+      };
+
+      if (accessToken) account.access_token = accessToken;
+      if (refreshToken) account.refresh_token = refreshToken;
+      else issues.push("缺少 refresh_token，访问令牌过期后无法自动续期");
+
+      for (const key of ["id_token", "scope", "email", "user_id", "team_id"]) {
+        addKnownCredential(account, candidate, key);
+      }
+
+      const rawExpiresAt = asString(candidate.expires_at).trim();
+      const expiresAt = normalizeRFC3339(rawExpiresAt);
+      if (expiresAt) account.expires_at = expiresAt;
+      else if (rawExpiresAt) issues.push("expires_at 无效，已忽略");
+
+      const expiresIn = normalizeGrok2APIExpiresIn(candidate.expires_in);
+      if (expiresIn.invalid) issues.push("expires_in 无效，已忽略");
+      else if (!expiresAt && expiresIn.value !== null && expiresIn.value > 0) {
+        account.expires_in = expiresIn.value;
+      }
+
+      return { account, issues };
+    }
+
+    function convertCPAToGrok2APIBuild(entry) {
+      const raw = entry.value;
+      const meta = materializeCPARecord(raw);
+      if (!meta) return { skipped: true, reason: "记录不是 JSON 对象" };
+
+      const provider = providerFromCPA(raw, meta);
+      if (provider !== "xai") {
+        return { skipped: true, reason: `暂不支持 provider: ${provider || "empty"}` };
+      }
+      if (boolValue(meta.disabled)) {
+        return { skipped: true, reason: "disabled=true 已跳过" };
+      }
+
+      const token = nestedToken(meta);
+      return normalizeGrok2APIBuildCredential({
+        name: firstString(meta, ["email", "sub", "subject", "label", "name"]),
+        client_id: firstString(meta, ["client_id"]) || firstString(token, ["client_id"]),
+        access_token: extractAccessToken(meta),
+        refresh_token: extractRefreshToken(meta),
+        id_token: firstString(meta, ["id_token", "idToken"]) || firstString(token, ["id_token", "idToken"]),
+        token_type: firstString(meta, ["token_type"]) || firstString(token, ["token_type"]),
+        scope: firstString(meta, ["scope"]) || firstString(token, ["scope"]),
+        expires_at: extractGrok2APIBuildExpiresAt(meta),
+        expires_in: firstString(meta, ["expires_in"]) || firstString(token, ["expires_in"]),
+        email: firstString(meta, ["email", "Email"]),
+        user_id: firstString(meta, ["sub", "subject", "user_id", "principal_id"]),
+        team_id: firstString(meta, ["team_id"])
+      });
+    }
+
+    function convertSubToGrok2APIBuild(entry) {
+      const account = entry.value;
+      if (!account || typeof account !== "object" || Array.isArray(account)) {
+        return { skipped: true, reason: "记录不是 sub2api account 对象" };
+      }
+
+      const platform = firstString(account, ["platform"]).toLowerCase();
+      if (platform !== "grok") {
+        return { skipped: true, reason: `暂不支持 platform: ${platform || "empty"}` };
+      }
+
+      const type = firstString(account, ["type"]).toLowerCase();
+      if (type && type !== "oauth") {
+        return { skipped: true, reason: `Grok Build 仅支持 OAuth，当前 type=${type}` };
+      }
+
+      const credentials = account.credentials && typeof account.credentials === "object"
+        ? account.credentials
+        : {};
+      return normalizeGrok2APIBuildCredential({
+        name: firstString(account, ["name"]) || firstString(credentials, ["email", "sub"]),
+        client_id: firstString(credentials, ["client_id"]),
+        access_token: firstString(credentials, ["access_token", "accessToken"]),
+        refresh_token: firstString(credentials, ["refresh_token", "refreshToken"]),
+        id_token: firstString(credentials, ["id_token", "idToken"]),
+        token_type: firstString(credentials, ["token_type"]),
+        scope: firstString(credentials, ["scope"]),
+        expires_at: firstString(credentials, ["expires_at", "expired", "expiry", "expires"]),
+        expires_in: credentials.expires_in,
+        email: firstString(credentials, ["email"]) || firstString(account, ["name"]),
+        user_id: firstString(credentials, ["sub", "subject", "user_id", "principal_id"]),
+        team_id: firstString(credentials, ["team_id"])
+      });
+    }
+
+    function expandGrok2APIBuildEntries(entries) {
+      const expanded = [];
+      const skipped = [];
+
+      for (const entry of entries) {
+        const data = unwrapSub2APIEnvelope(entry.value);
+        if (data && typeof data === "object" && !Array.isArray(data) && Array.isArray(data.accounts)) {
+          const headerError = validateSub2APIDataHeader(data);
+          if (headerError) {
+            skipped.push({ source: entry.name, reason: headerError });
+            continue;
+          }
+          data.accounts.forEach((account, index) => {
+            expanded.push({ name: `${entry.name}:accounts[${index}]`, value: account });
+          });
+          continue;
+        }
+        expanded.push(entry);
+      }
+
+      return { entries: expanded, skipped };
+    }
+
+    function detectGrok2APISource(entry) {
+      const raw = entry && entry.value;
+      const meta = materializeCPARecord(raw);
+      if (meta && providerFromCPA(raw, meta) === "xai") return "cpa";
+      if (raw && typeof raw === "object" && !Array.isArray(raw) &&
+          firstString(raw, ["platform"]).toLowerCase() === "grok") {
+        return "sub2api";
+      }
+      return "";
+    }
+
+    function grok2APIBuildFileName(account, fallback) {
+      const identity = slugifyFilePart(account.email || account.user_id || account.name || fallback || "account");
+      return `grok2api-build-${identity}.json`;
+    }
+
+    function buildGrok2APIBuild(entries) {
+      const accounts = [];
+      const previews = [];
+      const issues = [];
+      const expanded = expandGrok2APIBuildEntries(entries);
+      const skipped = [...expanded.skipped];
+      const grok2apiFiles = [];
+      const usedNames = new Set();
+
+      for (const entry of expanded.entries) {
+        const source = detectGrok2APISource(entry);
+        if (!source) {
+          skipped.push({ source: entry.name, reason: "不是 CPA xAI 或 sub2api Grok 账号" });
+          continue;
+        }
+
+        const result = source === "cpa"
+          ? convertCPAToGrok2APIBuild(entry)
+          : convertSubToGrok2APIBuild(entry);
+        if (result.skipped) {
+          skipped.push({ source: entry.name, reason: result.reason });
+          continue;
+        }
+        accounts.push(result.account);
+        previews.push({
+          name: result.account.name,
+          platform: source === "cpa" ? "CPA xAI" : "sub2api Grok",
+          type: "Grok Build",
+          expires: result.account.expires_at || "0",
+          status: result.account.refresh_token ? "可自动续期" : "不可自动续期"
+        });
+        for (const issue of result.issues || []) {
+          issues.push({ source: entry.name, reason: issue });
+        }
+      }
+
+      for (const account of accounts) {
+        grok2apiFiles.push({
+          name: uniqueFileName(grok2APIBuildFileName(account, "account"), usedNames),
+          data: account
+        });
+      }
+
+      const output = { accounts };
+      return {
+        output,
+        outputText: accounts.length ? formatOutput(output) : "",
+        fileName: "grok2api-build-import.json",
+        downloadKind: "json",
+        cpaFiles: [],
+        sub2apiFiles: [],
+        grok2apiFiles,
+        previews,
+        issues,
+        skipped,
+        proxyCount: 0,
+        accountCount: accounts.length
       };
     }
 
@@ -1809,14 +2012,20 @@
       state.lastDownloadKind = result.downloadKind || "json";
       state.lastCPAFiles = result.cpaFiles || [];
       state.lastSub2APIFiles = result.sub2apiFiles || [];
+      state.lastGrok2APIFiles = result.grok2apiFiles || [];
       els.outputJson.value = result.outputText;
       els.downloadBtn.disabled = !result.outputText;
       els.copyBtn.disabled = !result.outputText;
       els.downloadLabel.textContent = state.lastDownloadKind === "zip" ? "下载 ZIP" : "下载 JSON";
-      const splitAvailable = state.direction === "cpa-to-sub" && state.lastSub2APIFiles.length > 0;
+      const splitFiles = state.direction === "cpa-to-sub"
+        ? state.lastSub2APIFiles
+        : state.direction === "to-grok2api-build"
+          ? state.lastGrok2APIFiles
+          : [];
+      const splitAvailable = splitFiles.length > 0;
       els.downloadSplitBtn.disabled = !splitAvailable;
-      els.downloadSplitBtn.classList.toggle("hidden", state.direction !== "cpa-to-sub");
-      els.downloadSplitLabel.textContent = `拆分 ZIP${state.lastSub2APIFiles.length ? ` (${state.lastSub2APIFiles.length})` : ""}`;
+      els.downloadSplitBtn.classList.toggle("hidden", state.direction === "sub-to-cpa");
+      els.downloadSplitLabel.textContent = `拆分 ZIP${splitFiles.length ? ` (${splitFiles.length})` : ""}`;
 
       els.statRecords.textContent = String(result.totalRecordsOverride ?? totalRecords);
       els.statAccounts.textContent = String(result.accountCount);
@@ -1828,7 +2037,9 @@
         els.previewRows.innerHTML = `<tr><td colspan="5">${totalRecords ? "没有生成可导出的账号。" : "等待输入。"}</td></tr>`;
       } else {
         els.previewRows.innerHTML = result.previews.slice(0, 10).map((row) => {
-          const statusClass = row.status === "可导入" || row.status === "可导出" ? "ok" : "warn";
+          const statusClass = row.status === "可导入" || row.status === "可导出" || row.status === "可自动续期"
+            ? "ok"
+            : "warn";
           return `<tr>
             <td title="${escapeHTML(row.name)}">${escapeHTML(row.name)}</td>
             <td><span class="tag">${escapeHTML(row.platform)}</span></td>
@@ -1863,28 +2074,45 @@
       const collected = collectEntries();
       const result = state.direction === "cpa-to-sub"
         ? buildSub2API(collected.entries)
-        : buildCPA(collected.entries);
+        : state.direction === "sub-to-cpa"
+          ? buildCPA(collected.entries)
+          : buildGrok2APIBuild(collected.entries);
       renderResult(result, collected.entries.length, collected.errors);
     }
 
     function setDirection(direction) {
       state.direction = direction;
       const isCpa = direction === "cpa-to-sub";
+      const isSub = direction === "sub-to-cpa";
+      const isBuild = direction === "to-grok2api-build";
       els.dirCpaToSub.classList.toggle("active", isCpa);
-      els.dirSubToCpa.classList.toggle("active", !isCpa);
+      els.dirSubToCpa.classList.toggle("active", isSub);
+      els.dirToGrok2APIBuild.classList.toggle("active", isBuild);
       els.dirCpaToSub.setAttribute("aria-selected", String(isCpa));
-      els.dirSubToCpa.setAttribute("aria-selected", String(!isCpa));
-      els.inputTitle.textContent = isCpa ? "输入 CPA auth JSON" : "输入 sub2api 导入包";
-      els.inputHint.textContent = isCpa
-        ? "支持单个对象、数组、NDJSON、连续粘贴多个 JSON 对象，也支持多选 .json 文件。"
-        : "支持 sub2api-data 导入包、accounts 数组或单个 account 对象。";
-      els.outputTitle.textContent = isCpa ? "sub2api 导入包" : "CPA auth 列表";
-      els.outputHint.textContent = isCpa
-        ? "输出为 sub2api 前端导入弹窗读取的 DataPayload 文件。"
-        : "CPA 原生按每账号一个 JSON 文件管理；下载会生成可批量上传的 ZIP。";
-      els.sourceInput.placeholder = isCpa
-        ? '{"type":"codex","email":"me@example.com","access_token":"...","refresh_token":"...","expired":"2099-01-01T00:00:00Z"}'
-        : '{"data":{"type":"sub2api-data","version":1,"accounts":[{"name":"me@example.com","platform":"openai","type":"oauth","credentials":{"access_token":"..."}}],"proxies":[]}}';
+      els.dirSubToCpa.setAttribute("aria-selected", String(isSub));
+      els.dirToGrok2APIBuild.setAttribute("aria-selected", String(isBuild));
+
+      if (isCpa) {
+        els.inputTitle.textContent = "输入 CPA auth JSON";
+        els.inputHint.textContent = "支持单个对象、数组、NDJSON、连续粘贴多个 JSON 对象，也支持多选 .json 文件。";
+        els.outputTitle.textContent = "sub2api 导入包";
+        els.outputHint.textContent = "输出为 sub2api 前端导入弹窗读取的 DataPayload 文件。";
+        els.sourceInput.placeholder = '{"type":"codex","email":"me@example.com","access_token":"...","refresh_token":"...","expired":"2099-01-01T00:00:00Z"}';
+        els.downloadSplitBtn.title = "按账号拆分下载 sub2api JSON";
+      } else if (isSub) {
+        els.inputTitle.textContent = "输入 sub2api 导入包";
+        els.inputHint.textContent = "支持 sub2api-data 导入包、accounts 数组或单个 account 对象。";
+        els.outputTitle.textContent = "CPA auth 列表";
+        els.outputHint.textContent = "CPA 原生按每账号一个 JSON 文件管理；下载会生成可批量上传的 ZIP。";
+        els.sourceInput.placeholder = '{"data":{"type":"sub2api-data","version":1,"accounts":[{"name":"me@example.com","platform":"openai","type":"oauth","credentials":{"access_token":"..."}}],"proxies":[]}}';
+      } else {
+        els.inputTitle.textContent = "输入 CPA xAI / sub2api Grok JSON";
+        els.inputHint.textContent = "支持 CPA xAI、sub2api Grok、DataPayload、数组、NDJSON 和混合多文件。";
+        els.outputTitle.textContent = "Grok2API Build 导入包";
+        els.outputHint.textContent = "输出为 Grok2API Build 可直接导入的 accounts JSON。";
+        els.sourceInput.placeholder = '{"type":"xai","refresh_token":"...","email":"me@example.com"}';
+        els.downloadSplitBtn.title = "按账号拆分下载 Grok2API Build JSON";
+      }
       convert();
     }
 
@@ -1940,6 +2168,14 @@
 
     function downloadSplitSub2APIZip() {
       downloadZipFiles(state.lastSub2APIFiles, "sub2api-import-files.zip");
+    }
+
+    function downloadSplitOutputZip() {
+      if (state.direction === "cpa-to-sub") {
+        downloadSplitSub2APIZip();
+      } else if (state.direction === "to-grok2api-build") {
+        downloadZipFiles(state.lastGrok2APIFiles, "grok2api-build-auth-files.zip");
+      }
     }
 
     function downloadZipFiles(files, fileName) {
@@ -2075,10 +2311,15 @@
 
     els.dirCpaToSub.addEventListener("click", () => setDirection("cpa-to-sub"));
     els.dirSubToCpa.addEventListener("click", () => setDirection("sub-to-cpa"));
+    els.dirToGrok2APIBuild.addEventListener("click", () => setDirection("to-grok2api-build"));
     els.sourceInput.addEventListener("input", debouncedConvert);
     els.prettyJson.addEventListener("change", convert);
     els.sampleBtn.addEventListener("click", () => {
-      els.sourceInput.value = state.direction === "cpa-to-sub" ? cpaSample : subSample;
+      els.sourceInput.value = state.direction === "cpa-to-sub"
+        ? cpaSample
+        : state.direction === "sub-to-cpa"
+          ? subSample
+          : grok2apiBuildSample;
       state.files = [];
       renderFileList();
       convert();
@@ -2093,7 +2334,7 @@
     els.fileInput.addEventListener("change", (event) => loadFiles(Array.from(event.target.files || [])));
     els.copyBtn.addEventListener("click", copyOutput);
     els.downloadBtn.addEventListener("click", downloadOutput);
-    els.downloadSplitBtn.addEventListener("click", downloadSplitSub2APIZip);
+    els.downloadSplitBtn.addEventListener("click", downloadSplitOutputZip);
 
     for (const eventName of ["dragenter", "dragover"]) {
       els.dropzone.addEventListener(eventName, (event) => {
